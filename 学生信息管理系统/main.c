@@ -7,22 +7,22 @@
 #define N 3
 int num;
 typedef struct {
-	char no[10];      /*Ñ§ºÅ*/
-	char name[20];    /*ĞÕÃû*/
-	int score[N];     /*NÃÅ¹¦¿Î³É¼¨*/
-	double total;     /*×Ü·Ö*/
-	double aver;      /*Æ½¾ù·Ö*/
-	int order;        /*Ãû´Î*/
+	char no[10];      /*å­¦å·*/
+	char name[20];    /*å§“å*/
+	int score[N];     /*Né—¨åŠŸè¯¾æˆç»©*/
+	double total;     /*æ€»åˆ†*/
+	double aver;      /*å¹³å‡åˆ†*/
+	int order;        /*åæ¬¡*/
 } STU;
 
-typedef struct node { //½áµãÀàĞÍ
+typedef struct node { 
 	STU data;
 	struct node *next;
 } Node;
 
-typedef struct {         //Á´±íÀàĞÍ
-	Node *head,*tail;   //Ö¸ÏòÁ´±íµÄµÚÒ»½áµãºÍ×îºóÒ»¸ö½áµã
-	int len;        //Ö¸Ê¾Á´±íÖĞ½áµãµÄ¸öÊı
+typedef struct {         
+	Node *head,*tail;   
+	int len;        
 } LinkList;
 LinkList *L;
 void ShowMenu(LinkList *L);
@@ -48,12 +48,12 @@ int main() {
 	return 0;
 }
 
-//²Ëµ¥Õ¹Ê¾
+
 void ShowMenu(LinkList *L) {
 	int i;
 	char s[10];
 
-	char *p[7]= {"1¡¢ĞÅÏ¢Â¼Èë","2¡¢ĞÅÏ¢Êä³ö","3¡¢ĞÅÏ¢²éÑ¯","4¡¢²åÈëÑ§ÉúĞÅÏ¢","5¡¢É¾³ıÑ§ÉúĞÅÏ¢","6¡¢ĞŞ¸ÄÑ§ÉúĞÅÏ¢","7¡¢ÍË³ö³ÌĞò"};
+	char *p[7]= {"1ã€ä¿¡æ¯å½•å…¥","2ã€ä¿¡æ¯è¾“å‡º","3ã€ä¿¡æ¯æŸ¥è¯¢","4ã€æ’å…¥å­¦ç”Ÿä¿¡æ¯","5ã€åˆ é™¤å­¦ç”Ÿä¿¡æ¯","6ã€ä¿®æ”¹å­¦ç”Ÿä¿¡æ¯","0ã€é€€å‡ºç¨‹åº"};
 	for(i=0; i<20; i++) {
 		printf("*");
 		if(i==10)
@@ -73,13 +73,13 @@ void ShowMenu(LinkList *L) {
 			printf("\n");
 
 	}
-	printf("ÇëÑ¡Ôñ²Ù×÷£º");
+	printf("è¯·é€‰æ‹©æ“ä½œï¼š");
 	do {
 		scanf("%s",s);
 		i=atoi(s);
-		if(i<1||i>7)
-			printf("ÇëÖØĞÂÊäÈëÓĞĞ§²Ù×÷£º");
-	} while(i<1||i>7);
+		if(i<0||i>7)
+			printf("è¯·é‡æ–°è¾“å…¥æœ‰æ•ˆæ“ä½œï¼š");
+	} while(i<0||i>7);
 
 	switch(i) {
 		case 1:system("cls");input(L);break;
@@ -88,18 +88,18 @@ void ShowMenu(LinkList *L) {
 		case 4:system("cls");addStu(L);break;
 		case 5:system("cls");Delete(L);break;
 		case 6:system("cls");change(L);break;
-		case 7:exit(0);
+		case 0:exit(0);
 	}
 }
 
-//ÊäÈëĞÅÏ¢
+
 void input(LinkList *L) {
 	int i;
 	Node *p,*q;
 	L->len=0;
-	printf("ÇëÊäÈëÑ§ÉúÈËÊı£º");
+	printf("è¯·è¾“å…¥å­¦ç”Ÿäººæ•°ï¼š");
 	scanf("%d",&num);
-	printf("ÇëÊäÈëÑ§ÉúµÄĞÅÏ¢£º");
+	printf("è¯·è¾“å…¥å­¦ç”Ÿçš„ä¿¡æ¯ï¼š");
 	for(i=0; i<num; i++) {
 		p=(Node*)malloc(sizeof(Node));
 		p->next=NULL;
@@ -109,35 +109,57 @@ void input(LinkList *L) {
 		}
 		else{
 			q->next=p;
-			q=p;/*   ĞŞ¸ÄµÄ²¿·Ö    Ôö¼ÓÕâÒ»¾ä   */
+			q=p;/*   ä¿®æ”¹çš„éƒ¨åˆ†    å¢åŠ è¿™ä¸€å¥   */
 		}
-		printf("µÚ%d¸öÑ§Éú£º",i+1);
-		printf("\nÑ§ºÅ£º");
+		printf("ç¬¬%dä¸ªå­¦ç”Ÿï¼š",i+1);
+		printf("\nå­¦å·ï¼š");
 		scanf("%s",p->data.no);
-		printf("\nĞÕÃû£º");
+		printf("\nå§“åï¼š");
 		scanf("%s",p->data.name);
-		printf("\nÓïÎÄ³É¼¨£º");
+		printf("\nè¯­æ–‡æˆç»©ï¼š");
 		scanf("%d",&p->data.score[1]);
-		printf("\nÊıÑ§³É¼¨£º");
+		printf("\næ•°å­¦æˆç»©ï¼š");
 		scanf("%d",&p->data.score[2]);
-		printf("\nÓ¢Óï³É¼¨£º");
+		printf("\nè‹±è¯­æˆç»©ï¼š");
 		scanf("%d",&p->data.score[3]);
+		p->data.total=p->data.score[1]+p->data.score[2]+p->data.score[3];
+		p->data.aver=p->data.total/N;
 		L->len++;
 		L->tail=p;
 	}
 }
 
-//Êä³öĞÅÏ¢
+
+void sort(LinkList *L){
+	Node* p=L->head;
+	Node* q;
+	STU t;
+	while (p->next!=NULL){
+		q=p;
+		while (q->next!=NULL){
+			if (q->data.total<q->next->data.total){
+				t=q->data;
+				q->data=q->next->data;
+				q->next->data=t;
+			}
+			q=q->next;
+		}
+		p=p->next;	
+	}
+}
+
+
 void output(LinkList *L) {
-	int i;
+	int i,j;
 	Node *p;
 	p=L->head;
-	//p=L->head->next;
-	printf("Ñ§ÉúĞÅÏ¢ÈçÏÂ£º\n");
-	printf("Ñ§ºÅ\tĞÕÃû\tÓïÎÄ\tÊıÑ§\tÓ¢Óï\t×Ü·Ö\t\tÆ½¾ù·Ö\n");
-	for(i=0; i<L->len; i++) {/*   ĞŞ¸ÄµÄ²¿·Ö    °ÑnumĞŞ¸ÄÎªL->len   */
-		p->data.total=p->data.score[1]+p->data.score[2]+p->data.score[3];
-		p->data.aver=p->data.total/N;
+/*	p=L->head->next;*/ 
+	sort(L);
+	printf("å­¦ç”Ÿä¿¡æ¯å¦‚ä¸‹ï¼š\n");
+	printf("å­¦å·\tå§“å\tè¯­æ–‡\tæ•°å­¦\tè‹±è¯­\tæ€»åˆ†\t\tå¹³å‡åˆ†\n");
+	for(i=0; i<L->len; i++) {/*   ä¿®æ”¹çš„éƒ¨åˆ†    æŠŠnumä¿®æ”¹ä¸ºL->len   */
+		/*p->data.total=p->data.score[1]+p->data.score[2]+p->data.score[3];
+		p->data.aver=p->data.total/N;*/
 		printf("%s\t%s\t%d\t%d\t%d\t%lf\t%lf\n",p->data.no,p->data.name,p->data.score[1],p->data.score[2],p->data.score[3],p->data.total,p->data.aver);
 		p=p->next;
 	}
@@ -145,18 +167,18 @@ void output(LinkList *L) {
 
 }
 
-//²éÕÒ
+
 void query(LinkList *L) {
 	int i;
 	char x[10];
 	Node *p;
 	p=L->head->next;
-	printf("Èô°´ĞÕÃû²éÕÒÇëÊäÈë¡°1¡±£¬Èô°´Ñ§ºÅ²éÕÒÇëÊäÈë¡°2¡±£º");
+	printf("è‹¥æŒ‰å§“åæŸ¥æ‰¾è¯·è¾“å…¥â€œ1â€ï¼Œè‹¥æŒ‰å­¦å·æŸ¥æ‰¾è¯·è¾“å…¥â€œ2â€ï¼š");
 	do {
 		scanf("%s",x);
 		i=atoi(x);
 		if(i<1||i>5)
-			printf("ÇëÖØĞÂÊäÈëÓĞĞ§²Ù×÷£º");
+			printf("è¯·é‡æ–°è¾“å…¥æœ‰æ•ˆæ“ä½œï¼š");
 	} while(i<1||i>2);
 	switch(i) {
 		case 1:querybyname(L);break;
@@ -165,69 +187,71 @@ void query(LinkList *L) {
 
 }
 
-//°´ĞÕÃû²éÕÒ
+
 void querybyname(LinkList *L) {
 	char xingming[15];
 	Node *p;
-	p=L->head;/*   ĞŞ¸ÄµÄ²¿·Ö    °ÑL->head->nextĞŞ¸ÄÎªL->head   */
-	printf("ÇëÊäÈëÄãÒª²éÕÒµÄĞÕÃû£º");
+	p=L->head;/*   ä¿®æ”¹çš„éƒ¨åˆ†    æŠŠL->head->nextä¿®æ”¹ä¸ºL->head   */
+	printf("è¯·è¾“å…¥ä½ è¦æŸ¥æ‰¾çš„å§“åï¼š");
 	scanf("%s",xingming);
 	while(p) {
 		if(strcmp(p->data.name,xingming)==0) {
-			printf("ÄãÒª²éÕÒµÄÑ§ÉúĞÅÏ¢ÈçÏÂ£º\n");
-			printf("Ñ§ºÅ\tĞÕÃû\tÓïÎÄ\tÊıÑ§\tÓ¢Óï\t×Ü·Ö\t\tÆ½¾ù·Ö\n");
+			printf("ä½ è¦æŸ¥æ‰¾çš„å­¦ç”Ÿä¿¡æ¯å¦‚ä¸‹ï¼š\n");
+			printf("å­¦å·\tå§“å\tè¯­æ–‡\tæ•°å­¦\tè‹±è¯­\tæ€»åˆ†\t\tå¹³å‡åˆ†\n");
 			printf("%s\t%s\t%d\t%d\t%d\t%f\t%f\n",p->data.no,p->data.name,p->data.score[1],p->data.score[2],p->data.score[3],p->data.total,p->data.aver);
 			getch();
-			return 0;
+			return;
 		} else
 			p=p->next;
 	}
-	printf("²éÎŞ´ËÈË£¡");
+	printf("æŸ¥æ— æ­¤äººï¼");
 	getch();
 }
 
-//°´Ñ§ºÅ²éÕÒ
+
 void querybyid(LinkList *L) {
 	char sid[10];
 	Node *p;
-	p=L->head;/*   ĞŞ¸ÄµÄ²¿·Ö    °ÑL->head->nextĞŞ¸ÄÎªL->head   */
+	p=L->head;/*   ä¿®æ”¹çš„éƒ¨åˆ†    æŠŠL->head->nextä¿®æ”¹ä¸ºL->head   */
 	p->data.total=p->data.score[1]+p->data.score[2]+p->data.score[3];
 	p->data.aver=p->data.total/N;
-	printf("ÇëÊäÈëÄãÒª²éÕÒµÄÑ§ºÅ£º");
+	printf("è¯·è¾“å…¥ä½ è¦æŸ¥æ‰¾çš„å­¦å·ï¼š");
 	scanf("%s",sid);
 	while(p) {
 		if(strcmp(p->data.no,sid)==0) {
-			printf("ÄãÒª²éÕÒµÄÑ§ÉúĞÅÏ¢ÈçÏÂ£º\n");
-			printf("Ñ§ºÅ\tĞÕÃû\tÓïÎÄ\tÊıÑ§\tÓ¢Óï\t×Ü·Ö\t\tÆ½¾ù·Ö\n");
+			printf("ä½ è¦æŸ¥æ‰¾çš„å­¦ç”Ÿä¿¡æ¯å¦‚ä¸‹ï¼š\n");
+			printf("å­¦å·\tå§“å\tè¯­æ–‡\tæ•°å­¦\tè‹±è¯­\tæ€»åˆ†\t\tå¹³å‡åˆ†\n");
 			printf("%s\t%s\t%d\t%d\t%d\t%f\t%f\n",p->data.no,p->data.name,p->data.score[1],p->data.score[2],p->data.score[3],p->data.total,p->data.aver);
 			getch();
-			return 0;
+			return;
 		} else
 			p=p->next;
 	}
-	printf("²éÎŞ´ËÈË£¡\n");
+	printf("æŸ¥æ— æ­¤äººï¼\n");
 	getch();
 }
 
-//Ôö¼ÓĞÅÏ¢
-void addStu(LinkList *L) {/*     ĞŞ¸ÄµÄ²¿·Ö    ĞŞ¸ÄÁËº¯Êı²ÎÊı*/
+
+void addStu(LinkList *L) {/*     ä¿®æ”¹çš„éƒ¨åˆ†    ä¿®æ”¹äº†å‡½æ•°å‚æ•°*/
 
 	Node *p,*q,*s;
 	int count=1,n;
 	p=(Node *)malloc(sizeof(Node));
-	printf("ÇëÊäÈëĞÂÑ§ÉúµÄĞÅÏ¢£º\n");
-	printf("\nÑ§ºÅ£º");
+	printf("è¯·è¾“å…¥æ–°å­¦ç”Ÿçš„ä¿¡æ¯ï¼š\n");
+	printf("\nå­¦å·ï¼š");
 	scanf("%s",&p->data.no);
-	printf("\nĞÕÃû£º");
+	printf("\nå§“åï¼š");
 	scanf("%s",&p->data.name);
-	printf("\nÓïÎÄ³É¼¨£º");
+	printf("\nè¯­æ–‡æˆç»©ï¼š");
 	scanf("%d",&p->data.score[1]);
-	printf("\nÊıÑ§³É¼¨£º");
+	printf("\næ•°å­¦æˆç»©ï¼š");
 	scanf("%d",&p->data.score[2]);
-	printf("\nÓ¢Óï³É¼¨£º");
+	printf("\nè‹±è¯­æˆç»©ï¼š");
 	scanf("%d",&p->data.score[3]);
+	p->data.total=p->data.score[1]+p->data.score[2]+p->data.score[3];
+	p->data.aver=p->data.total/N;
 	p->next=NULL;
-	printf("ÇëÊäÈëÄãÒª²åÈëµÄÎ»ÖÃ£º");
+	printf("è¯·è¾“å…¥ä½ è¦æ’å…¥çš„ä½ç½®ï¼š");
 	scanf("%d",&n);
 	if (n<1) {
 		free(p);
@@ -258,11 +282,11 @@ void addStu(LinkList *L) {/*     ĞŞ¸ÄµÄ²¿·Ö    ĞŞ¸ÄÁËº¯Êı²ÎÊı*/
 	}
 }
 
-//É¾³ıĞÅÏ¢
+
 void Delete(LinkList *L) {
 	int x,y,count;
 	Node *p,*q;
-	printf("ÇëÊäÈëÄãÒªÉ¾³ıµÄÑ§ºÅ:");
+	printf("è¯·è¾“å…¥ä½ è¦åˆ é™¤çš„å­¦å·:");
 	scanf("%d",&x); 
 	p=L->head;
 	q=p;
@@ -273,7 +297,7 @@ void Delete(LinkList *L) {
 				L->head=p->next;
 				L->len--;
 				free(p);
-				printf("É¾³ı³É¹¦£¡");
+				printf("åˆ é™¤æˆåŠŸï¼");
 				getch();
 				return;
 			}
@@ -281,7 +305,7 @@ void Delete(LinkList *L) {
 				q->next=p->next;
 				L->len--;
 				free(p);
-				printf("É¾³ı³É¹¦£¡");
+				printf("åˆ é™¤æˆåŠŸï¼");
 				getch();
 				return;
 			}
@@ -292,12 +316,34 @@ void Delete(LinkList *L) {
 			count++;
 		}
 	}
-	printf("ÄãÊäÈëµÄÑ§ºÅÓĞÎó£¡");
+	printf("ä½ è¾“å…¥çš„å­¦å·æœ‰è¯¯ï¼");
 	getch();
 	return; 
 }
 
-//ĞŞ¸ÄĞÅÏ¢
-void change(LinkList *L) {
 
+void change(LinkList *L) {
+	char n[10];
+	printf("è¯·è¾“å…¥éœ€è¦ä¿®æ”¹çš„å­¦å·ï¼š"); scanf("%s",n);
+	Node* p=L->head;
+	while (strcmp(p->data.no,n)!=0 && p->next!=NULL) p=p->next;
+	if (strcmp(p->data.no,n)!=0){
+		printf("æŸ¥è¯¢ä¸åˆ°è¯¥å­¦ç”Ÿ");
+		getch();
+		return;
+	}
+	printf("è¯·è¾“å…¥æ–°å­¦ç”Ÿçš„ä¿¡æ¯ï¼š\n");
+	printf("\nå­¦å·ï¼š");
+	scanf("%s",&p->data.no);
+	printf("\nå§“åï¼š");
+	scanf("%s",&p->data.name);
+	printf("\nè¯­æ–‡æˆç»©ï¼š");
+	scanf("%d",&p->data.score[1]);
+	printf("\næ•°å­¦æˆç»©ï¼š");
+	scanf("%d",&p->data.score[2]);
+	printf("\nè‹±è¯­æˆç»©ï¼š");
+	scanf("%d",&p->data.score[3]);
+	p->data.total=p->data.score[1]+p->data.score[2]+p->data.score[3];
+	p->data.aver=p->data.total/N;
+	return;
 }
