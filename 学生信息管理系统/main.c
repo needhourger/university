@@ -131,20 +131,24 @@ void input(LinkList *L) {
 
 
 void sort(LinkList *L){
-	Node* p=L->head;
+	Node* p;
 	Node* q;
 	STU t;
-	while (p->next!=NULL){
-		q=p;
-		while (q->next!=NULL){
-			if (q->data.total<q->next->data.total){
-				t=q->data;
-				q->data=q->next->data;
-				q->next->data=t;
+	int i,j;
+	for (i=0;i<10;i++){
+		p=L->head;
+		while (p->next!=NULL){
+			q=p;
+			while (q->next!=NULL){
+				if (q->data.total<q->next->data.total){
+					t=q->data;
+					q->data=q->next->data;
+					q->next->data=t;
+				}
+				q=q->next;
 			}
-			q=q->next;
+			p=p->next;	
 		}
-		p=p->next;	
 	}
 }
 
