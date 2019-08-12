@@ -1,0 +1,92 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>JAVA员工管理项目</title>
+        <link type="text/css" rel="stylesheet" media="all" href="styles/global.css" />
+        <link type="text/css" rel="stylesheet" media="all" href="styles/global_color.css" />
+        
+        <script type="text/javascript" src="js/jquery.js"></script>
+        <script type="text/javascript" src="js/cookie_util.js"></script>
+         <script type="text/javascript">
+         	//页面加载完成后执行
+         	$(function(){
+         		$("#login").click(function(){
+         			
+         			$("#count_msg").html("");
+         			$("#password_msg").html("");
+         			
+         			var account = $("#count").val().trim();
+         			var password = $("#password").val().trim();
+         			
+         			var boo=true;
+         			if(account==""){
+         				$("#count_msg").html("账号不能为空");
+         				boo=false;
+         			}
+         			if(password==""){
+         				$("#password_msg").html("密码不能为空");
+         				boo=false;
+         			}
+         			
+         			if(boo){
+         				//异步请求
+         				$.ajax({
+         					url:"http://localhost:8080/JsCUCC/checklogin.do",
+         					type:"post",
+         					data:{"account":account,"pwd":password},
+         					dataType:"json",
+         					success:function(result){
+         						if(result.status==0){
+         							//取出回调参数中的 admin对象
+         							var admin = result.data;
+         							//将对象中 admin的id，存入cookie中
+         							addCookie("admin_id",admin.id);
+         							//让页面跳转到 index
+         							window.location.href="index.html";
+         						}else if(result.status==1){
+         							$("#count_msg").html(result.msg);
+         						}
+         					},
+         					error:function(){
+         						alert("系统错误");
+         					}
+         				});
+         			}
+         			
+         		});
+         		
+         	});
+         	
+         
+         
+         </script>
+         
+         
+         
+    </head>
+    <body class="index">
+        <div class="login_box">
+            <table>
+                <tr>
+                    <td class="login_info">账号：</td>
+                    <td colspan="2"><input id="count" name="" type="text" class="width150" /></td>
+                    <td class="login_error_info"><span class="required" id="count_msg"></span></td>
+                </tr>
+                <tr>
+                    <td class="login_info">密码：</td>
+                    <td colspan="2"><input id="password" name="" type="password" class="width150" /></td>
+                    <td><span class="required" id="password_msg" ></span></td>
+                </tr>
+                       
+                <tr>
+                    <td></td>
+                    <td class="login_button" colspan="2">
+                        <a href="javascript:void(0)"><img id="login" src="images/login_btn.png" /></a>
+                    </td>    
+                    <td><span class="required"></span></td>                
+                </tr>
+            </table>
+        </div>
+    </body>
+</html>

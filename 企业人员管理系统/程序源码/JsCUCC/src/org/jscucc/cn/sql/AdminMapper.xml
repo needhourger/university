@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="org.jscucc.cn.dao.AdminDao">
+<cache/>
+	
+	
+	<select id="checkLogin"
+		parameterType="string"
+		resultType="org.jscucc.cn.entity.Admin">
+		select * from dx_admin 
+			where account=#{0}
+			and password=#{1}
+		</select>
+	
+	
+	<select id="findByIdAdmin"
+		parameterType="int"
+		resultType="org.jscucc.cn.entity.Admin">
+		select * from dx_admin
+		where id=#{id}
+	</select>
+	
+	<select id="findAdminAll"
+		resultType="org.jscucc.cn.entity.Admin">
+		select * from dx_admin
+	</select>
+	
+	<select id="findEmpInfo"
+		parameterType="string"
+		resultType="org.jscucc.cn.entity.EmpInfo">
+		select * from empinfo
+		where account=#{account}
+	</select>
+	
+	<update id="updatePwd" parameterType="string">
+		update dx_admin set password=#{0} where account=#{1}
+	</update>
+	
+	<update id="updateEmpInfo" parameterType="org.jscucc.cn.entity.EmpInfo">
+		update empinfo set name=#{name},idcard=#{idCard},age=#{age},phone=#{phone},address=#{address}
+		where account=#{account}
+	</update>
+	
+	
+	<select id="findByPhone" parameterType="string" resultType="org.jscucc.cn.entity.EmpInfo">
+		select * from empinfo where phone=#{phone}
+	
+	</select >
+	<select id="findByAccount" parameterType="string" resultType="org.jscucc.cn.entity.Admin">
+		select * from dx_admin where account=#{account}
+	</select>
+	
+	<insert id="addAdmin" parameterType="org.jscucc.cn.entity.Admin">
+		insert into dx_admin(account,password,leve,phone)
+		values(#{account},#{password},#{leve},#{phone})
+	</insert>
+	
+	<update id="updataAccount" parameterType="org.jscucc.cn.entity.Admin">
+		update empinfo set account=#{account} where phone=#{phone}
+	</update>
+	
+	<update id="updateAdmin" parameterType="org.jscucc.cn.entity.Admin">
+		update dx_admin set account=#{account},leve=#{leve},phone=#{phone}
+		where id=#{id}
+	</update>
+	
+	<update id="updateEmpInfoAccount"
+		parameterType="map">
+		update empinfo set account=#{newaccount} 
+			where account=#{oldaccount}	
+	</update>
+	
+	<delete id="deleteAdmin" parameterType="String">
+		delete from dx_admin where account =#{account}
+	</delete>
+</mapper>

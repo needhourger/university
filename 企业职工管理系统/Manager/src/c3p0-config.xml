@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<c3p0-config>
+   <default-config>
+      <!-- 连接四大参数配置 -->
+      <property name="jdbcUrl">jdbc:mysql://localhost:3306/Manager?serverTimezone=CTT</property>
+      <property name="driverClass">com.mysql.cj.jdbc.Driver</property>
+      <property name="user">root</property>
+      <property name="password">123456</property>
+      
+      <!-- 池参数配置 -->
+      <property name="acquireIncrement">5</property><!-- 3 -->
+      <property name="initialPoolSize">20</property><!-- 3 -->
+      <property name="minPoolSize">2</property>    <!-- 3 -->
+      <property name="maxPoolSize">50</property>  <!-- 15 -->
+   </default-config>
+</c3p0-config>

@@ -1,0 +1,23 @@
+create table user(
+ID integer primary key auto_increment,
+username varchar(20),
+password varchar(20)
+);
+
+'or 1=1 -- -
+
+create table student(
+    no bigint primary key auto_increment,
+    name varchar(20),
+    sex enum('男','女','未知')default '未知',
+    birth date,
+    college text,
+    home text
+);
+
+load data infile 'E:/SQL/mysql-8.0.15-winx64/uploads/data4.csv' replace
+into table student character set utf8
+fields terminated by ',' optionally enclosed by '"' escaped by '"'
+lines terminated by '\r\n'
+ignore 1 lines
+(no,name,sex,birth,college,home);

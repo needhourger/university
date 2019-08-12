@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="css/default.css">
+	<link rel="stylesheet" href="css/header.css">
+	<link rel="stylesheet" href="css/main.css">
+	
+	<script type="text/javascript" src="js/index.js"></script>
+	<script type="text/javascript" src="js/cookie_util.js"></script>
+	<script type="text/javascript" src="js/jquery.js"></script>
+	
+	<script type="text/javascript" src="js/admin_role.js"></script>
+	
+	<script type="text/javascript">
+	
+		$(function(){
+			//分页查询，变量
+			//当前页
+			var currentPage=1;
+			//每一页显示的最大行数
+			var pageSize=10;
+			//总页数
+			var totalPage;
+			
+			//创建用户弹窗
+			$("#createUser").click(function(){
+				var aCancle = $('#alert-box2 a');
+				
+				$('#alert-box2').width("100%");
+				$('#alert-box2').height("100%");
+				$('#alert-box2').fadeIn(500);
+				
+				
+				$("#username").val("");
+				$("#userage").val("");
+				$("#usersex").val("");
+				$("#useridcard").val("");
+				$("#usertel").val("");
+				$("#useraddress").val("");
+				$("#addErr2").html("&nbsp;");
+				
+					// 取消按钮
+				aCancle[0].onclick = function () {
+					
+					closeAlertBox();
+
+				}
+
+				// 添加用户按钮
+				aCancle[1].onclick = function () {
+					var name = $("#username").val().trim();
+					var age = $("#userage").val().trim();
+					var sex = $("#usersex").val().trim();
+					var idcard = $("#useridcard").val().trim();
+					var phone = $("#usertel").val().trim();
+					var address = $("#useraddress").val().trim();
+					
+					var boo=true;
+					if(name==""){
+						$("#addErr2").html("姓名不能为空");
+						boo=false;
+					}else if(age==""||age>90||age<18){
+						$("#addErr2").html("年龄填写错误");
+						boo=false;
+					}else if(sex!='男'&&sex!='女'){
+						$("#addErr2").html("性别只能填（男）或者（女）");
+						boo=false;
+					}else if(idcard==""||(idcard.length!=18&&idcard.length!=15)){
+						$("#addErr2").html("身份证填写错误");
+						boo=false;
+					}else if(phone==""||phone.length!=11){
+						$("#addErr2").html("手机号填写错误");
+						boo=false;
+					}else if(address==""){
+						$("#addErr2").html("地址不能为空");
+						boo=false;
+					}
+					
+					if(boo){
+						$.ajax({
+							url:"http://localhost:8080/JsCUCC/adduser.do",
+							type:"post",
+							data:{"name":name,"age":age,"sex":sex,"idCard":idcard,"phone":phone,"address":address},
+							datatype:"json",
+							success:function(result){
+								if(result.status==0){
+									alert(result.msg);
+									closeAlertBox()
+								}else if(result.status==1){
+									$("#addErr2").html(result.msg);
+								}else{
+									$("#addErr2").html("注册失败");
+								}
+							},
+							error:function(){
+								alert("系统错误");
+							}
+						});
+					}
+				}
+
+				
+				// 关闭窗口
+			function closeAlertBox() {
+				$('#alert-box2').fadeOut(1000);
+				setTimeout(function () {
+					$('#alert-box2').width("0%");
+					$('#alert-box2').height("0%");
+				}, 500);
+			}
+			});
+			
+			//根据身份证号，或者手机号查询
+			$("#queryuser").click(function(){
+				var code = $("#usercode").val().trim();
+				//身份证正则表达式
+				var reg=/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
+				//11位数字正则
+				var reg2=/^\d{11}$/;
+				var boo=true;
+				$("#th").html("");
+				$("#tb").html("");
+				$("#d").html("");
+				$("#fy").html("");
+				$("#queryerr").html("");
+				$("#queryerr").css("color","red");
+				if(!reg.test(code)){
+					boo=false;
+					if(!reg2.test(code)){
+						$("#queryerr").html("输入的查询信息有错误");
+					}else{
+						boo=true;
+					}
+				}
+				
+				if(boo){
+					$.ajax({
+						url:"http://localhost:8080/JsCUCC/queryUser.do",
+						type:"post",
+						data:{"code":code},
+						datatype:"json",
+						success:function(){
+							
+						},
+						error:function(){
+							alert("系统错误");
+						}
+					});
+				}
+			});
+			
+			
+				
+		});
+		
+
+		
+			// 关闭窗口
+			function closeAlertBox() {
+				$('#alert-box4').fadeOut(1000);
+				setTimeout(function () {
+					$('#alert-box4').width("0%");
+					$('#alert-box4').height("0%");
+				}, 500);
+			}
+	</script>
+	
+</head>
+<body>
+	<header id="header" class="clearfix">
+		<aside class="logo">
+			<img src="./img/logo.png" alt="" width="40" height="40">
+		</aside>
+		<nav class="clearfix">
+			<h2><a href="">员工管理系统</a></h2>
+		</nav>
+		<aside class="seek-hd time clearfix" id="seek-box">
+			2019 - ** - **
+		</aside>
+		<aside class="seek-hd time clearfix" id="">
+			<a  href="javascript:void(0)" id="exit">退出登录</a>
+		</aside>
+		
+	</header>
+	<article id="main"  class="clearfix">
+		<header>
+			<nav class="clearfix" id="nav1">
+				<h2>
+					<i></i>
+					<a href="javascript:void(0)" id="adminInfo">个人信息</a>
+				</h2>
+				<h2 class="reset-pass-word">
+					<i></i>
+					<a href="javascript:void(0)" id="updatePwd">修改密码</a>
+				</h2>
+				<h2 id="role" class="right" >
+					<!--<i></i>
+					<a href="">角色管理</a>-->
+				</h2>
+				<h2 id="add-admin" class="right">
+					<!-- <i></i>
+					<a href="javascript:void(0)">添加管理</a>-->
+				</h2> 
+			</nav>
+		</header>
+		<article id="seek-user">
+			<div class="group clearfix">
+				<p>查询用户信息：<Span id="queryerr"></Span></p>
+				<input type="text" id="usercode">
+				<input type="button" value="查询用户" id="queryuser">
+				<input type="button" value="创建用户" style="float:left" id="createUser">
+			</div>
+			<div class="group">
+				<p>姓名：<span id="errName"></span></p>
+				<input type="text" id="userInfoName"  disabled="disabled">
+			</div>
+			<div class="group rows">
+				<p>年龄：<span id="errAge"></span></p>
+				<input type="text" id="userInfoAge"  disabled="disabled">
+			</div>
+			<div class="group rows">
+				<p>性别：<span id="errSex"></span></p>
+				<input type="text" id="userInfoSex" disabled="disabled">
+			</div>
+			<div class="group">
+				<p>身份证号码：<span id="errIdcard"></span></p>
+				<input type="text" id="userInfoIdCard"  disabled="disabled">
+			</div>
+			<div class="group">
+				<p>电话：<span id="errTel"></span></p>
+				<input type="text" id="userInfoTel"  disabled="disabled">
+			</div>
+			<div class="group">
+				<p>地址：<span id="errAddress"></span></p>
+				<input type="text" id="userInfoAddress" disabled="disabled">
+			</div>
+			<div class="group port">
+				<input type="button" value="保存信息" id="comituser">
+				<input type="button" value="修改信息" id="updateuser">
+			</div>
+		</article>
+		<article id="table">
+			<h2 id="infoh2">欢迎登录</h2>
+			<table id="tab">
+				 <thead id="th">
+					 <!--<tr>
+						<th>Id</th>
+						<th>Name</th>
+						<th>Level</th>
+						<th>Tel</th>
+						<th>Operation</th>
+					</tr> -->
+				</thead>
+				<tbody id="tb">
+					 <!--  <tr>
+						<td>01</td>
+						<td class="edit-content">TaoTao</td>
+						<td class="edit-content">One</td>
+						<td class="edit-content">152****0818</td>
+						<td>
+							<span>操作</span>
+							<div class="clearfix">
+								<a href="javascript:void(0)"  class="edit">修改</a>
+								<a href="javascript:void(0)">删除</a>
+							</div>
+						</td>
+					</tr>  -->
+				</tbody>
+			</table>
+			<p id="fy"></p>
+			<div id="d"></div>
+		</article>
+	</article>
+	<aside id="alert-box" style="display:none">
+		<div>
+			<header>添加管理员</header>
+			<article>
+				<p id="addErr" >&nbsp;</p>
+				<p>Account</p>
+				<input type="text" id="addAccount">
+				<p>Password:(输入至少6位密码)</p>
+				<input type="password" id="addPwd">
+				<p>Level:(级别分为：A,S,两个等级)</p>
+				<input type="text" id="addLevel">
+				<p>Phone:</p>
+				<input type="text" id="addPhone">
+			</article>
+			<footer class="clearfix">
+				<a href="javascript:void(0)" style="color: tomato">CANCLE</a>
+				<a href="javascript:void(0)" style="color: #3498db">OK</a>
+			</footer>
+		</div>
+	</aside>
+	<aside id="alert-box2" style="display:none">
+		<div>
+			<header>添加新用户</header>
+			<article>
+				<p id="addErr2" >&nbsp;</p>
+				<p>姓名:</p>
+				<input type="text" id="username">
+				<p>年龄:</p>
+				<input type="text" id="userage">
+				<p>性别:</p>
+				<input type="text" id="usersex">
+				<p>身份证号:</p>
+				<input type="text" id="useridcard">
+				<P>电话:</P>
+				<input type="text" id="usertel">
+				<P>地址:</P>
+				<input type="text" id="useraddress">
+			</article>
+			<footer class="clearfix">
+				<a href="javascript:void(0)" style="color: tomato">CANCLE</a>
+				<a href="javascript:void(0)" style="color: #3498db">OK</a>
+			</footer>
+		</div>
+	</aside>
+	
+	
+	<aside id="alert-box3" style="display:none">
+		<div>
+			<header>确认手机号</header>
+			<article>
+				<p id="addErr3" >&nbsp;</p>
+				<p>姓名:</p>
+				<input type="text" id="uname" readonly="readonly" >
+				<p>身份证号:</p>
+				<input type="text" id="uidcard" readonly="readonly">
+				<p>手机号:</p>
+				<input type="text" id="phonenumber" readonly="readonly">
+				<p>保底消费:</p>
+				<input type="text" id="basicmoney" readonly="readonly">
+				<P>预存金额:<span id="prestoremsg"></span></P>
+				<input type="text" id="prestoremoney">
+			</article>
+			<footer class="clearfix">
+				<a href="javascript:void(0)" style="color: tomato">CANCLE</a>
+				<a href="javascript:void(0)" style="color: #3498db">OK</a>
+			</footer>
+		</div>
+	</aside>
+	
+		<aside id="alert-box4" style="display:none">
+		<div>
+			<header>宽带信息确认</header>
+			<article>
+				<p id="addErr4" >&nbsp;</p>
+				<p>姓名:</p>
+				<input type="text" id="uname2" readonly="readonly" >
+				<p>身份证号:</p>
+				<input type="text" id="uidcard2" readonly="readonly">
+				<p>手机号:</p>
+				<input type="text" id="phonenumber2" >
+				<p>宽带名:</p>
+				<input type="text" id="kdname" readonly="readonly">
+				<P>月消费:</P>
+				<input type="text" id="kdcost" readonly="readonly">
+				<P>地址:</P>
+				<input type="text" id="kdaddress">
+			</article>
+			<footer class="clearfix">
+				<a href="javascript:void(0)" style="color: tomato">CANCLE</a>
+				<a href="javascript:void(0)" style="color: #3498db">OK</a>
+			</footer>
+		</div>
+	</aside>
+	
+	<aside id="alert-box5" style="display:none">
+		<div>
+			<header>修改管理员</header>
+			<article>
+				<p id="addErr5" >&nbsp;</p>
+				<p>Id</p>
+				<input type="text" id="adminId" readonly>
+				<p>Account</p>
+				<input type="text" id="adminAccount">
+				<p>Level:(级别分为：A,S,两个等级)</p>
+				<input type="text" id="adminLeve">
+				<p>Phone:</p>
+				<input type="text" id="adminPhone">
+			</article>
+			<footer class="clearfix">
+				<a href="javascript:void(0)" style="color: tomato">CANCLE</a>
+				<a href="javascript:void(0)" style="color: #3498db">OK</a>
+			</footer>
+		</div>
+	</aside>
+	
+</body>
+</html>

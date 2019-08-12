@@ -1,0 +1,36 @@
+# mysql version 8
+# username root
+# password 123456
+
+create table  if not exists user(
+ID integer primary key auto_increment,
+username varchar(20),
+password varchar(20)
+);
+
+create table if not exists contacts(
+	ID integer primary key auto_increment,
+	name varchar(20) not null,
+	sextype enum('男','女','未知')default '未知' not null,
+	birth date,
+	phone1 varchar(14),
+	phone2 varchar(14),
+	telephone varchar(14),
+	address varchar(100),
+	belongto integer not null,
+	foreign key(belongto) references user(id)
+);
+
+insert into contacts (name,sextype,birth,phone1,phone2,telephone,address,belongto)
+values (
+"小明",
+"男",
+"1998-12-21",
+"13160205858",
+NULL,
+"86618722",
+"江苏省南京市浦口区信息工程大学沁园",
+1
+);
+
+or1=1--
