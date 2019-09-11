@@ -154,7 +154,7 @@ class MyActionListener implements ActionListener{
 			flag=false;
 		}
 		else if (actionCommand.equals("+/-")) {
-			if (!MainControl.input.isBlank()) {
+			if (MainControl.input!="") {
 				try {
 					String[] temp=MainControl.input.split(" ");
 					double x=-Double.parseDouble(temp[temp.length-1]);
