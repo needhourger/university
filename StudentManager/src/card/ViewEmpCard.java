@@ -11,7 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import base.UIClass;
-import window.ViewEmpDialog;
+import window.Window;
 
 public class ViewEmpCard extends JPanel{
 	private JLabel fNameLabel = new JLabel("First Name: ");
@@ -34,7 +34,7 @@ public class ViewEmpCard extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				String firstName=fNameTextField.getText();
 				String lastName=lNameTextField.getText();
-				ViewEmpDialog dialog=new ViewEmpDialog((Component)viewButton, firstName, lastName);
+				Window.showViewEmpPanelCard(firstName,lastName);
 				fNameTextField.setText("");
 				lNameTextField.setText("");
 			}

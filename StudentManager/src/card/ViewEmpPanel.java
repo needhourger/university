@@ -1,4 +1,4 @@
-package window;
+package card;
 
 import java.awt.Component;
 import java.awt.Dialog;
@@ -8,13 +8,15 @@ import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import base.Employee;
 import base.Student;
 import base.UIClass;
+import window.Window;
 
-public class ViewEmpDialog extends JDialog {
+public class ViewEmpPanel extends JPanel {
 	private JLabel fNameLabel = new JLabel("First Name: ");
 	private JLabel lNameLabel = new JLabel("Last Name: ");
 	private JLabel phoneLabel = new JLabel("Phone: ");
@@ -42,7 +44,29 @@ public class ViewEmpDialog extends JDialog {
 	private JComboBox<String> salaryTypeComboBox = new JComboBox<String>(salaryTypes);
 	private JTextField salaryTextField = new JTextField();
 	
-	public ViewEmpDialog(Component p,String fName,String lName) {
+	public void update(String fName,String lName) {
+		
+		int i=UIClass.empRecods.getEmployeeIndex(fName, lName);
+		if (i==-1) {
+			Window.resTextArea.append("Employee not in the record!\n");
+			return;
+		}
+		Employee temp=UIClass.empRecods.employeeArray[i];
+		fNameTextField.setText(temp.getFirstName());
+		lNameTextField.setText(temp.getLastName());
+		phoneTextField.setText(String.valueOf(temp.getPhone()));
+		emailTextField.setText(temp.getEmail());
+		addressTextField.setText(temp.getAddress());
+		emContactTextField.setText(temp.getEmContact());
+		ageTextField.setText(String.valueOf(temp.getAge()));
+		categoryComboBox.setSelectedItem(temp.getCategory());
+		departmentTextField.setText(temp.getDepartment());
+		salaryTypeComboBox.setSelectedItem(temp.getSalaryType());
+		salaryTextField.setText(String.valueOf(temp.getSalary()));
+		
+	}
+
+	public ViewEmpPanel() {
 		super();
 		
 		setLayout(new GridLayout(11,2));
@@ -81,29 +105,5 @@ public class ViewEmpDialog extends JDialog {
 		add(salaryTypeComboBox);
 		add(salaryLabel);
 		add(salaryTextField);
-		
-		this.setModal(true);
-		this.setSize(500, 500);
-		this.setLocationRelativeTo(p);
-		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		
-		int i=UIClass.empRecods.getEmployeeIndex(fName, lName);
-		if (i==-1) {
-			Window.resTextArea.append("Employee not in the record!\n");
-			return;
-		}
-		Employee temp=UIClass.empRecods.employeeArray[i];
-		fNameTextField.setText(temp.getFirstName());
-		lNameTextField.setText(temp.getLastName());
-		phoneTextField.setText(String.valueOf(temp.getPhone()));
-		emailTextField.setText(temp.getEmail());
-		addressTextField.setText(temp.getAddress());
-		emContactTextField.setText(temp.getEmContact());
-		ageTextField.setText(String.valueOf(temp.getAge()));
-		categoryComboBox.setSelectedItem(temp.getCategory());
-		departmentTextField.setText(temp.getDepartment());
-		salaryTypeComboBox.setSelectedItem(temp.getSalaryType());
-		salaryTextField.setText(String.valueOf(temp.getSalary()));
-		this.setVisible(true);
 	}
 }

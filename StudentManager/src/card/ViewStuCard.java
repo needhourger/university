@@ -10,7 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import window.ViewStuDialog;
+import window.Window;
 
 public class ViewStuCard extends JPanel{
 	private JLabel fNameLabel = new JLabel("First Name: ");
@@ -33,7 +33,7 @@ public class ViewStuCard extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				String firstName=fNameTextField.getText();
 				String lastName=lNameTextField.getText();
-				ViewStuDialog dialog=new ViewStuDialog((Component)viewButton, firstName, lastName);
+				Window.showStuPanelCard(firstName,lastName);
 				fNameTextField.setText("");
 				lNameTextField.setText("");
 			}

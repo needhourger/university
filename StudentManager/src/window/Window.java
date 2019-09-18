@@ -26,7 +26,9 @@ import card.RemoveEmpCard;
 import card.RemoveStuCard;
 import card.StudentManagerCard;
 import card.ViewEmpCard;
+import card.ViewEmpPanel;
 import card.ViewStuCard;
+import card.ViewStuPanel;
 
 public class Window extends JFrame{
 	public static JTextArea resTextArea=new JTextArea(10, 50);
@@ -50,6 +52,8 @@ public class Window extends JFrame{
 	private static ViewStuCard viewStuCard=new ViewStuCard();
 	private static EmployeeManagerCard employeeManagerCard=new EmployeeManagerCard();
 	private static StudentManagerCard studentManagerCard=new StudentManagerCard();
+	private static ViewEmpPanel viewEmpPanel=new ViewEmpPanel();
+	private static ViewStuPanel viewStuPanel=new ViewStuPanel();
 	
 	private static int flag=1;
 	
@@ -78,6 +82,8 @@ public class Window extends JFrame{
 		cardPanel.add("removeStuCard",removeStuCard);
 		cardPanel.add("viewEmpCard",viewEmpCard);
 		cardPanel.add("viewStuCard",viewStuCard);
+		cardPanel.add("viewEmpPanelCard",viewEmpPanel);
+		cardPanel.add("viewStuPanelCard",viewStuPanel);
 		cardPanel.setBorder(new LineBorder(Color.GRAY, 2));
 		this.add(cardPanel,BorderLayout.CENTER);
 		
@@ -146,5 +152,16 @@ public class Window extends JFrame{
 	
 	public static void showViewStuCard() {
 		cardLayout.show(cardPanel, "viewStuCard");
+	}
+
+	public static void showViewEmpPanelCard(String fname,String lname) {
+		viewEmpPanel.update(fname, lname);
+		cardLayout.show(cardPanel, "viewEmpPanelCard");
+	}
+
+	public static void showStuPanelCard(String fname,String lname) {
+		viewStuPanel.update(fname, lname);
+		cardLayout.show(cardPanel, "viewStuPanelCard");
+		
 	}
 }

@@ -1,4 +1,4 @@
-package window;
+package card;
 
 import java.awt.Component;
 import java.awt.GridLayout;
@@ -7,12 +7,14 @@ import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import base.Student;
 import base.UIClass;
+import window.Window;
 
-public class ViewStuDialog extends JDialog {
+public class ViewStuPanel extends JPanel {
 	private JLabel fNameLabel = new JLabel("First Name: ");
 	private JLabel lNameLabel = new JLabel("Last Name: ");
 	private JLabel phoneLabel = new JLabel("Phone: ");
@@ -37,9 +39,29 @@ public class ViewStuDialog extends JDialog {
 	private JTextField majorTextField = new JTextField();
 	private JTextField gpaTextField = new JTextField();
 	
-	public ViewStuDialog(Component p,String fName,String lName) {
+	public void update(String fName,String lName) {
+		int i=UIClass.stuRecods.getStudentIndex(fName, lName);
+		if (i==-1) {
+			Window.resTextArea.append("Student not in the record!\n");
+			return;
+		}
+		Student temp=UIClass.stuRecods.studentArray[i];
+		fNameTextField.setText(temp.getFirstName());
+		lNameTextField.setText(temp.getLastName());
+		phoneTextField.setText(String.valueOf(temp.getPhone()));
+		emailTextField.setText(temp.getEmail());
+		addressTextField.setText(temp.getAddress());
+		emContactTextField.setText(temp.getEmContact());
+		ageTextField.setText(String.valueOf(temp.getAge()));
+		classLevelComboBox.setSelectedItem(temp.getClassLevel());
+		majorTextField.setText(temp.getMajor());
+		gpaTextField.setText(String.valueOf(temp.getGpa()));
+		
+	}
+
+	public ViewStuPanel() {
 		super();
-	
+		
 		setLayout(new GridLayout(10,2));
 		
 		fNameTextField.setEditable(false);
@@ -73,28 +95,5 @@ public class ViewStuDialog extends JDialog {
 		add(majorTextField);
 		add(gpaLabel);
 		add(gpaTextField);
-		
-		this.setModal(true);
-		this.setSize(500,500);
-		this.setLocationRelativeTo(p);
-		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		
-		int i=UIClass.stuRecods.getStudentIndex(fName, lName);
-		if (i==-1) {
-			Window.resTextArea.append("Student not in the record!\n");
-			return;
-		}
-		Student temp=UIClass.stuRecods.studentArray[i];
-		fNameTextField.setText(temp.getFirstName());
-		lNameTextField.setText(temp.getLastName());
-		phoneTextField.setText(String.valueOf(temp.getPhone()));
-		emailTextField.setText(temp.getEmail());
-		addressTextField.setText(temp.getAddress());
-		emContactTextField.setText(temp.getEmContact());
-		ageTextField.setText(String.valueOf(temp.getAge()));
-		classLevelComboBox.setSelectedItem(temp.getClassLevel());
-		majorTextField.setText(temp.getMajor());
-		gpaTextField.setText(String.valueOf(temp.getGpa()));
-		this.setVisible(true);
 	}
 }
