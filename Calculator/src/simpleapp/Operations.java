@@ -85,10 +85,12 @@ public class Operations {
 	}
 	
 	private static double boundaryCheck(double x) throws MyException {
-		if (x>Long.MAX_VALUE || x<0.000001)
+		String[] strs=String.valueOf(x).split("\\.");
+		String temp=strs[strs.length-1];
+		int len=temp.length();
+		if (x>Long.MAX_VALUE || x<-Long.MAX_VALUE || len>5)
 			throw new MyException("Out of boundary");
-		return x;
-		
+		return x;		
 	}
 	
 }
