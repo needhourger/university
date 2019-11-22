@@ -1,10 +1,8 @@
 #include<stdio.h>
 #include<stdlib.h>
-
+#include<stdbool.h> 
 #define null 0
-typedef int bool;
-#define true 1
-#define false 0
+
 
 struct Data{
 	int key;
@@ -40,6 +38,11 @@ char UserInterface(){
 	);
 	return getchar();
 }
+
+bool isListEmpty(struct LinkList* list){
+	return list->head==null;
+} 
+
 
 struct LinkList createLinkList(){
 	struct LinkList ret;
@@ -137,15 +140,16 @@ void search(struct LinkList* list){
 
 void print(struct LinkList* list){
 	struct Node* p=list->head;
-	bool flag=false;
+	
+	if (isListEmpty(list)){
+		printf("List empty!\n");
+		return;
+	}
 	
 	while (p!=null){
 		printf("<key:%d---value:%d>\n",p->data->key,p->data->value);
 		p=p->next;
-		flag=true;
 	}
-	
-	if (!flag) printf("List empty!\n");
 	return;
 }
 
