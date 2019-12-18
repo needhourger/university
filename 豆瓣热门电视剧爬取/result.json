@@ -17,7 +17,7 @@
         "cover_x":2480,
         "cover_y":3472,
         "id":"27186311",
-        "is_new":true,
+        "is_new":false,
         "playable":true,
         "rate":"6.6",
         "title":"\u5251\u738b\u671d",
@@ -43,7 +43,7 @@
         "id":"30450399",
         "is_new":true,
         "playable":false,
-        "rate":"6.8",
+        "rate":"6.9",
         "title":"\u8d85\u7ea7\u5c11\u5973 \u7b2c\u4e94\u5b63",
         "url":"https://movie.douban.com/subject/30450399/"
     },
@@ -55,7 +55,7 @@
         "id":"34894418",
         "is_new":true,
         "playable":false,
-        "rate":"8.2",
+        "rate":"8.1",
         "title":"\u6cd5\u533b\u5b8b\u6148",
         "url":"https://movie.douban.com/subject/34894418/"
     },
@@ -101,7 +101,7 @@
         "cover_x":2200,
         "cover_y":3300,
         "id":"27616436",
-        "is_new":true,
+        "is_new":false,
         "playable":true,
         "rate":"4.7",
         "title":"\u4e00\u591c\u65b0\u5a18",
@@ -109,14 +109,14 @@
     },
     {
         "No":10,
-        "cover":"https://img9.doubanio.com/view/photo/s_ratio_poster/public/p2566627804.webp",
-        "cover_x":1688,
-        "cover_y":2500,
-        "id":"30344167",
+        "cover":"https://img1.doubanio.com/view/photo/s_ratio_poster/public/p2572145207.webp",
+        "cover_x":1000,
+        "cover_y":1417,
+        "id":"34429775",
         "is_new":false,
         "playable":false,
-        "rate":"9.3",
-        "title":"\u66fc\u8fbe\u6d1b\u4eba \u7b2c\u4e00\u5b63",
-        "url":"https://movie.douban.com/subject/30344167/"
+        "rate":"8.9",
+        "title":"\u7cbe\u795e\u53d8\u6001\u65e5\u8bb0",
+        "url":"https://movie.douban.com/subject/34429775/"
     }
 ]

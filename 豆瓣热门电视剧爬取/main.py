@@ -1,4 +1,5 @@
 #-*- coding:utf-8 -*-
+import os
 import json
 import requests
 import logging
@@ -23,6 +24,32 @@ params={
     "page_start":0
 }
 
+def save(data):
+    if not os.path.exists("./images"):
+        os.mkdir("./images")
+        logging.info("Downloading images...")
+    for i in data:
+        try:
+            r=requests.get(i.get("cover",""),headers=HEADER)
+        except:
+            logging.warning("Network error!")
+            continue
+        with open("./images/"+i.get("title","default")+".webp","wb+") as f:
+            f.write(r.content)
+            logging.info("Download {}.webp".format(i.get("title","default")))
+            f.close()
+            continue
+        logging.info("Write file error!")
+    
+
+    
+    logging.info("Download image complete, Saveing...")
+    with open("./result.json","w+",encoding="utf-8") as f:
+        json.dump(data,f,sort_keys=True,indent=4,separators=(',',':'))
+        logging.info("Save result complete!")
+        return
+    logging.warning("Cannot open file!")
+
 def generate(num=20):
     params["page_limit"]=num
     logging.info("Running...")
@@ -40,13 +67,9 @@ def generate(num=20):
     for i,x in enumerate(data):
         logging.info("No.{}\t剧名:《{}》\t评分:{}\t链接:{}".format(i+1,x.get("title"),x.get("rate"),x.get("url")))
         x["No"]=i+1
+    save(data)
     
-    logging.info("Saveing...")
-    with open("./result.json","w+",encoding="utf-8") as f:
-        json.dump(data,f,sort_keys=True,indent=4,separators=(',',':'))
-        logging.info("Save result complete!")
-        return
-    logging.warning("Cannot open file!")
+    
 
 if __name__ == "__main__":
     try:
