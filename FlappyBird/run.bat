@@ -1,1 +1,1 @@
-java -cp bin com.hsj.bird.World
+java -cp bin com.four.bird.World
