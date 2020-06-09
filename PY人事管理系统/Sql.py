@@ -20,9 +20,9 @@ class Sql():
             wage real,
             isAdmin boolean
         )""")
-        # Sql.cursor.execute("""
-        # insert or replace into users (id,username,password,name,position,wage,isAdmin) values (1,"admin","123456","admin","admin",10000.0,true)
-        # """)
+        Sql.cursor.execute("""
+        insert or replace into users (id,username,password,name,position,wage,isAdmin) values (1,"admin","123456","admin","admin",10000.0,true)
+        """)
         # for i in range(2,22):
         #     Sql.cursor.execute("""
         #     insert or replace into users (id,username,password,name,position,wage,isAdmin) values (?,"user{}","111111","小明","员工",1000.0,false)
@@ -113,3 +113,4 @@ class Sql():
         Sql.cursor.execute("""
             insert or replace into users (id,username,password,name,position,wage,isAdmin) values (?,?,?,?,?,?,?)
         """,(wid,username,password,name,position,wage,isAdmin))
+        Sql.conn.commit()
