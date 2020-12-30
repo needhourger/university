@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/src/main/DishesTable.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/OrderDishesTable.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/OrderedDishesTable.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/OrdersCheckTable.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/OrdersTable.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/SQL.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/Table.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/VIPusertable.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/Windows.java" charset="GBK" />
+  </component>
+</project>

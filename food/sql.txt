@@ -1,0 +1,50 @@
+﻿# mysql version 8
+# username orderAdmin
+# password 123456
+
+create database ordering;
+
+create table  if not exists user(
+ID integer primary key auto_increment,
+username varchar(20),
+password varchar(20),
+usertype integer
+);
+
+create table if not exists dishes(
+ID integer primary key auto_increment,
+name varchar(20),
+price float,
+picture longblob,
+taste varchar(20),
+times integer
+);
+
+
+create table if not exists orderings(
+ID integer primary key auto_increment,
+tableNO integer,
+ordertime datetime,
+dishesID varchar(100),
+money float,
+ischeck boolean default 0,
+discount float default 1,
+checktime datetime
+);
+
+
+
+create table if not exists VIPcustomers(
+ID integer primary key auto_increment,
+name varchar(20),
+discount float
+);
+
+insert into orderings (tableNO,ordertime,dishesID,money,discount) values (2,localtime(),"1,2,3,4",243.0,(select discount from vipcustomers where name=""));
+
+update orderings set ischeck=1,checktime=localtime() where id=11;
+
+select sum(money*discount) from orderings where ischeck=1 and date_format(checktime,'%Y-%m-%d')=date_format(now(),'%Y-%m-%d');
+
+insert into orderings (tableNO,ordertime,dishesID,money,discount) values (1,localtime(),"1,2,3",20.0,ifnull((select discount from vipcustomers where name=""),1));
+				
