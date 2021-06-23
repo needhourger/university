@@ -1,0 +1,16 @@
+Reads : Unix   I/O [Read   once     ] = 142
+Reads : Unix   I/O [Block  transfers] = 64
+Reads : Unix   I/O [Char   transfers] = 347536
+Reads : Unix   I/O [Random transfers] = 199
+Reads : C File I/O [Read   once     ] = 132
+Reads : C File I/O [Block  transfers] = 93
+Reads : C File I/O [Char   transfers] = 11449
+Reads : C File I/O [Random transfers] = 117
+Writes: Unix   I/O [Read   once     ] = 76
+Writes: Unix   I/O [Block  transfers] = 569
+Writes: Unix   I/O [Char   transfers] = 2253090
+Writes: Unix   I/O [Random transfers] = 20642
+Writes: C File I/O [Read   once     ] = 75
+Writes: C File I/O [Block  transfers] = 203
+Writes: C File I/O [Char   transfers] = 1592
+Writes: C File I/O [Random transfers] = 193
