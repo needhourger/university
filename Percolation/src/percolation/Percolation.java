@@ -1,7 +1,4 @@
-package percolation; /**
- * @author rxy8023
- * @version 1.0    2017/6/17 22:00
- */
+package percolation; 
 
 import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.StdOut;
